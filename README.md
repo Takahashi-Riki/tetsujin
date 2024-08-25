@@ -6,19 +6,105 @@ Welcome to your new gem! In this directory, you'll find the files you need to be
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
-Install the gem and add to the application's Gemfile by executing:
-
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
-
-If bundler is not being used to manage dependencies, install the gem by executing:
-
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+```
+$ gem install tetsujin
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+### Generate Note
+
+```ruby
+# Can generate C4 sound
+c_note = Tetsujin.note("C", 4)
+c_note = Tetsujin.note("ド", 4)
+```
+
+### Generate Scale
+
+```ruby
+# Can generate major scales starting from C4
+c_note = Tetsujin.note("C", 4)
+c_major_scale = Tetsujin.scale(c_note, :major)
+c_major_scale = Tetsujin.scale(c_note, "major")
+```
+
+### Generate Guitar
+
+```ruby
+# Can generate a guitar in regular tuning
+guitar = Tetsujin.regular_tuning_guitar(fretboard_length: 22)
+
+# Can generate custom tuned guitars
+tunings = [
+  Tetsujin.note("B", 2),
+  Tetsujin.note("E", 2),
+  Tetsujin.note("A", 2),
+  Tetsujin.note("D", 3),
+  Tetsujin.note("G", 3),
+  Tetsujin.note("B", 3),
+  Tetsujin.note("E", 4)
+]
+guitar = Tetsujin.guitar(tunings: tunings, fretboard_length: 22)
+```
+
+### Playing notes on the guitar
+
+```ruby
+guitar = Tetsujin.regular_tuning_guitar(fretboard_length: 12)
+
+c_note = Tetsujin.note("C", 4)
+d_note = Tetsujin.note("D", 4)
+
+guitar.play!([c_note, d_note])
+Tetsujin.display_guitar(guitar)
+
+#  1 : ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- -------
+#  2 : -------      C4 -------      D4 ------- ------- ------- ------- ------- ------- ------- ------- -------
+#  3 : ------- ------- ------- ------- -------      C4 -------      D4 ------- ------- ------- ------- -------
+#  4 : ------- ------- ------- ------- ------- ------- ------- ------- ------- -------      C4 -------      D4
+#  5 : ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- -------
+#  6 : ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- -------
+#    :       0       1       2       3       4       5       6       7       8       9      10      11      12
+```
+
+### Playing scales on the guitar
+
+```ruby
+guitar = Tetsujin.regular_tuning_guitar(fretboard_length: 12)
+
+c_note = Tetsujin.note("C", 4)
+c_major_scale = Tetsujin.scale(c_note, :major)
+
+guitar.play!(c_major_scale)
+Tetsujin.display_guitar(guitar)
+
+#  1 :      E4      F4 -------      G4 -------      A4 -------      B4      C5 ------- ------- ------- -------
+#  2 : -------      C4 -------      D4 -------      E4      F4 -------      G4 -------      A4 -------      B4
+#  3 : ------- ------- ------- ------- -------      C4 -------      D4 -------      E4      F4 -------      G4
+#  4 : ------- ------- ------- ------- ------- ------- ------- ------- ------- -------      C4 -------      D4
+#  5 : ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- -------
+#  6 : ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- -------
+#    :       0       1       2       3       4       5       6       7       8       9      10      11      12
+```
+
+### Pressing frets
+
+```ruby
+guitar = Tetsujin.regular_tuning_guitar(fretboard_length: 12)
+
+guitar.press!(2, 1)
+guitar.press!(2, 3)
+Tetsujin.display_guitar(guitar)
+
+#  1 : ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- -------
+#  2 : -------      C4 -------      D4 ------- ------- ------- ------- ------- ------- ------- ------- -------
+#  3 : ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- -------
+#  4 : ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- -------
+#  5 : ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- -------
+#  6 : ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- -------
+#    :       0       1       2       3       4       5       6       7       8       9      10      11      12
+```
 
 ## Development
 
