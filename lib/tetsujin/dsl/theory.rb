@@ -5,13 +5,13 @@ module Tetsujin
     module Theory
       # @param name [String] 音名
       # @param octave [Integer] オクターブ
-      def note(name, octave)
+      def create_note(name, octave)
         Tetsujin::Theory::Note::Factory.create_from_name(name: name, octave: octave)
       end
 
       # @param root [Tetsujin::Theory::Note] ルート音
       # @param pattern [String | Symbol] スケールのパターン
-      def scale(root, pattern)
+      def create_scale(root, pattern)
         Tetsujin::Theory::Scale.new(root: root, pattern: pattern.to_sym)
       end
     end

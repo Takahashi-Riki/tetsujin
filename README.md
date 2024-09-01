@@ -8,59 +8,62 @@ $ gem install tetsujin
 
 ## Usage
 
-### Please include Tetsujin in your workspace
+### Please include Tetsujin Module
 
 ```ruby
 require "tetsujin"
-include Tetsujin
+
+class YourClass
+  include Tetsujin
+end
 ```
 
-### Generate Note
+### Generate a Note
 
 ```ruby
 # Can generate C4 sound
-c_note = Tetsujin.note("C", 4)
-c_note = Tetsujin.note("ド", 4)
+c_note = create_note("C", 4)
+c_note = create_note("ド", 4)
 ```
 
-### Generate Scale
+### Generate a Scale
 
 ```ruby
 # Can generate major scales starting from C4
-c_note = Tetsujin.note("C", 4)
-c_major_scale = Tetsujin.scale(c_note, :major)
-c_major_scale = Tetsujin.scale(c_note, "major")
+c_note = create_note("C", 4)
+c_major_scale = create_scale(c_note, :major)
+c_major_scale = create_scale(c_note, "major")
 ```
 
-### Generate Guitar
+### Generate a Guitar
 
 ```ruby
 # Can generate a guitar in regular tuning
-guitar = Tetsujin.regular_tuning_guitar(fretboard_length: 22)
+guitar = create_regular_tuning_guitar(fretboard_length: 22)
 
 # Can generate custom tuned guitars
 tunings = [
-  Tetsujin.note("B", 2),
-  Tetsujin.note("E", 2),
-  Tetsujin.note("A", 2),
-  Tetsujin.note("D", 3),
-  Tetsujin.note("G", 3),
-  Tetsujin.note("B", 3),
-  Tetsujin.note("E", 4)
+  create_note("B", 2),
+  create_note("E", 2),
+  create_note("A", 2),
+  create_note("D", 3),
+  create_note("G", 3),
+  create_note("B", 3),
+  create_note("E", 4)
 ]
-guitar = Tetsujin.guitar(tunings: tunings, fretboard_length: 22)
+guitar = create_guitar(tunings: tunings, fretboard_length: 22)
 ```
 
 ### Playing notes on the guitar
 
 ```ruby
-guitar = Tetsujin.regular_tuning_guitar(fretboard_length: 12)
+guitar = create_regular_tuning_guitar(fretboard_length: 12)
 
-c_note = Tetsujin.note("C", 4)
-d_note = Tetsujin.note("D", 4)
+c_note = create_note("C", 4)
+d_note = create_note("D", 4)
 
 guitar.play!([c_note, d_note])
-Tetsujin.display_guitar(guitar)
+display_guitar(guitar)
 
 #  1 : ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- -------
 #  2 : -------      C4 -------      D4 ------- ------- ------- ------- ------- ------- ------- ------- -------
@@ -74,13 +77,13 @@ Tetsujin.display_guitar(guitar)
 ### Playing scales on the guitar
 
 ```ruby
-guitar = Tetsujin.regular_tuning_guitar(fretboard_length: 12)
+guitar = create_regular_tuning_guitar(fretboard_length: 12)
 
-c_note = Tetsujin.note("C", 4)
-c_major_scale = Tetsujin.scale(c_note, :major)
+c_note = create_note("C", 4)
+c_major_scale = create_scale(c_note, :major)
 
 guitar.play!(c_major_scale)
-Tetsujin.display_guitar(guitar)
+create_display_guitar(guitar)
 
 #  1 :      E4      F4 -------      G4 -------      A4 -------      B4      C5 ------- ------- ------- -------
 #  2 : -------      C4 -------      D4 -------      E4      F4 -------      G4 -------      A4 -------      B4
@@ -94,11 +97,11 @@ Tetsujin.display_guitar(guitar)
 ### Pressing frets
 
 ```ruby
-guitar = Tetsujin.regular_tuning_guitar(fretboard_length: 12)
+guitar = create_regular_tuning_guitar(fretboard_length: 12)
 
 guitar.press!(2, 1)
 guitar.press!(2, 3)
-Tetsujin.display_guitar(guitar)
+display_guitar(guitar)
 
 #  1 : ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- ------- -------
 #  2 : -------      C4 -------      D4 ------- ------- ------- ------- ------- ------- ------- ------- -------

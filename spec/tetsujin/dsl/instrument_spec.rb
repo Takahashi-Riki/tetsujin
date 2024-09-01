@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Tetsujin::DSL::Instrument do
-  describe "#regular_tuning_guitar" do
+  describe "#create_regular_tuning_guitar" do
     let(:dummy_class) { Class.new { include Tetsujin::DSL::Instrument } }
 
     let(:tuning_e) {  Tetsujin::Theory::Note.new(pitch_class:  4, octave: 2) }
@@ -14,11 +14,11 @@ RSpec.describe Tetsujin::DSL::Instrument do
     let(:fretboard_length) { 12 }
     it do
       expect(Tetsujin::Instrument::Guitar::Factory).to receive(:create).with(tunings: tunings, fretboard_length: fretboard_length)
-      dummy_class.new.regular_tuning_guitar(fretboard_length: fretboard_length)
+      dummy_class.new.create_regular_tuning_guitar(fretboard_length: fretboard_length)
     end
   end
 
-  describe "#guitar" do
+  describe "#create_guitar" do
     let(:dummy_class) { Class.new { include Tetsujin::DSL::Instrument } }
 
     let(:tuning_e) {  Tetsujin::Theory::Note.new(pitch_class:  4, octave: 2) }
@@ -31,7 +31,7 @@ RSpec.describe Tetsujin::DSL::Instrument do
     let(:fretboard_length) { 12 }
     it do
       expect(Tetsujin::Instrument::Guitar::Factory).to receive(:create).with(tunings: tunings, fretboard_length: fretboard_length)
-      dummy_class.new.guitar(tunings: tunings, fretboard_length: fretboard_length)
+      dummy_class.new.create_guitar(tunings: tunings, fretboard_length: fretboard_length)
     end
   end
 
